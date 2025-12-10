@@ -24,9 +24,7 @@ A modern PHP client library for interacting with Odoo's JSON-2 API (Odoo 19+). T
 composer require oscar-team/odoo-json2
 ```
 
-## Installation
-
-composer require oscar-team/odoo-json2## Laravel Integration
+## Laravel Integration
 
 This package is designed to work seamlessly with Laravel. The service provider is automatically discovered, so no manual registration is required.
 
@@ -42,6 +40,7 @@ This will create a `config/odoo.php` file in your Laravel application.
 
 Add the following environment variables to your `.env` file:
 
+```bash
 ODOO_HOST=https://your-odoo-instance.com
 ODOO_DATABASE=your-database-name
 ODOO_API_KEY=your-api-key-here
@@ -50,10 +49,12 @@ ODOO_SSL_VERIFY=true
 # Optional context settings
 ODOO_LANG=en_US
 ODOO_TIMEZONE=UTC
-ODOO_COMPANY_ID=1### Using the Odoo Client in Laravel
+ODOO_COMPANY_ID=1
+```
+### Using the Odoo Client in Laravel
 
 The package automatically registers the `Odoo` class as a singleton, so you can use it via dependency injection:
-
+```php
 use OdooJson2\Odoo;
 
 class YourController extends Controller
@@ -67,15 +68,19 @@ class YourController extends Controller
         $partners = $this->odoo->search('res.partner', []);
         return response()->json($partners);
     }
-}Or resolve it from the service container:
-p
+}
+```
+Or resolve it from the service container:
+```php
 use OdooJson2\Odoo;
 
 $odoo = app(Odoo::class);
-$partners = $odoo->search('res.partner', []);### Using Models in Laravel
+$partners = $odoo->search('res.partner', []);
+```
+### Using Models in Laravel
 
 Models are automatically booted when the service provider loads. You can use them directly:
-
+```php
 use App\Models\Partner; // Your Odoo model
 
 class PartnerController extends Controller
@@ -88,7 +93,9 @@ class PartnerController extends Controller
         
         return response()->json($partners);
     }
-}### Configuration File
+}
+```
+### Configuration File
 
 The published configuration file (`config/odoo.php`) contains the following options:
 
@@ -756,13 +763,4 @@ This library is open-sourced software licensed under the [MIT license](LICENSE).
 ## Support
 
 For issues, questions, or contributions, please open an issue on GitHub.
-
-## Changelog
-
-### 1.0.0
-- Initial release
-- Support for Odoo JSON-2 API
-- Full CRUD operations
-- API key authentication
-- Comprehensive error handling
 
