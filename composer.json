@@ -1,0 +1,53 @@
+{
+    "name": "oscar-team/odoo-json2",
+    "description": "Modern PHP client library for Odoo JSON-2 API (Odoo 19+)",
+    "type": "library",
+    "keywords": [
+        "odoo",
+        "json-2",
+        "api",
+        "client",
+        "erp",
+        "laravel"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mueez Sattar Khan",
+            "email": "msk@hejoscar.dk"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "phpstan/phpstan": "^1.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "OdooJson2\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OdooJson2\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage",
+        "analyse": "phpstan analyse src"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OdooJson2\\OdooServiceProvider"
+            ]
+        }
+    }
+}
+
