@@ -1,4 +1,5 @@
 /vendor/
+./examples/
 composer.lock
 .idea/
 .vscode/
