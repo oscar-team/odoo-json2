@@ -24,6 +24,82 @@ A modern PHP client library for interacting with Odoo's JSON-2 API (Odoo 19+). T
 composer require oscar-team/odoo-json2
 ```
 
+## Installation
+
+composer require oscar-team/odoo-json2## Laravel Integration
+
+This package is designed to work seamlessly with Laravel. The service provider is automatically discovered, so no manual registration is required.
+
+### Publishing Configuration
+
+After installing the package, publish the configuration file:
+```bash
+php artisan vendor:publish --provider="OdooJson2\OdooServiceProvider" --tag="config"
+```
+This will create a `config/odoo.php` file in your Laravel application.
+
+### Environment Configuration
+
+Add the following environment variables to your `.env` file:
+
+ODOO_HOST=https://your-odoo-instance.com
+ODOO_DATABASE=your-database-name
+ODOO_API_KEY=your-api-key-here
+ODOO_SSL_VERIFY=true
+
+# Optional context settings
+ODOO_LANG=en_US
+ODOO_TIMEZONE=UTC
+ODOO_COMPANY_ID=1### Using the Odoo Client in Laravel
+
+The package automatically registers the `Odoo` class as a singleton, so you can use it via dependency injection:
+
+use OdooJson2\Odoo;
+
+class YourController extends Controller
+{
+    public function __construct(
+        private Odoo $odoo
+    ) {}
+
+    public function index()
+    {
+        $partners = $this->odoo->search('res.partner', []);
+        return response()->json($partners);
+    }
+}Or resolve it from the service container:
+p
+use OdooJson2\Odoo;
+
+$odoo = app(Odoo::class);
+$partners = $odoo->search('res.partner', []);### Using Models in Laravel
+
+Models are automatically booted when the service provider loads. You can use them directly:
+
+use App\Models\Partner; // Your Odoo model
+
+class PartnerController extends Controller
+{
+    public function index()
+    {
+        $partners = Partner::query()
+            ->where('is_company', '=', true)
+            ->get();
+        
+        return response()->json($partners);
+    }
+}### Configuration File
+
+The published configuration file (`config/odoo.php`) contains the following options:
+
+- `host` - Your Odoo instance URL (required)
+- `database` - Database name (optional, can be determined from API key)
+- `api_key` - Your Odoo API key (required)
+- `ssl_verify` - Whether to verify SSL certificates (default: true)
+- `context` - Additional context settings (lang, timezone, companyId)
+
+All values can be overridden via environment variables.
+
 ## Configuration
 
 ### Getting Your API Key
